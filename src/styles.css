@@ -1,0 +1,22 @@
+@import 'https://cdn.jsdelivr.net/npm/@vue-flow/core@1.41.2/dist/style.css';
+@import 'https://cdn.jsdelivr.net/npm/@vue-flow/core@1.41.2/dist/theme-default.css';
+@import 'https://cdn.jsdelivr.net/npm/@vue-flow/controls@latest/dist/style.css';
+@import 'https://cdn.jsdelivr.net/npm/@vue-flow/minimap@latest/dist/style.css';
+@import 'https://cdn.jsdelivr.net/npm/@vue-flow/node-resizer@latest/dist/style.css';
+
+.vue-flow__node-toolbar {
+  @apply flex flex-col gap-y-1;
+}
+
+.vue-flow__node .vue-flow__handle {
+  @apply bg-gray-400;
+  height: 10px !important;
+  width: 10px !important;
+}
+
+.vue-flow__handle-source-true {
+  @apply bg-green-600 !important;
+}
+.vue-flow__handle-source-false {
+  @apply bg-red-800 !important;
+}

@@ -6,8 +6,9 @@ export function useGraph(flow) {
   const edges = ref(initialEdges)
 
   const generateNodeId = () => {
+    const ids = nodes.value.filter(node => !isNaN(parseInt(node.id))).map(node => parseInt(node.id))
     // Find the highest numeric ID and increment by 1
-    const maxId = Math.max(...nodes.value.map(node => parseInt(node.id)))
+    const maxId = Math.max(...ids)
     return (maxId + 1).toString()
   }
 
@@ -199,8 +200,10 @@ export function useGraph(flow) {
       newEdges.push(sourceToNewEdge)
 
       if(type === 'branch') {
+        const edgeId = generateEdgeId(id, insertEdge.target, 'source-true');
+        console.log(edgeId);
         newEdges.push({
-          id: generateEdgeId(id, insertEdge.target, 'source-true'),
+          id: edgeId,
           source: id,
           target: insertEdge.target,
           animated: false,
@@ -241,7 +244,7 @@ export function useGraph(flow) {
 
       if (savingNewEntryNode) {
         addNewEntryNode()
-        const actionNodes = nodes.value.filter((node) => node.type === 'action')
+        const actionNodes = nodes.value.filter((node) => node.type === 'start')
         let firstActionNode = actionNodes[0]
         if (!firstActionNode) {
           firstActionNode = createActionNodePlaceholders()

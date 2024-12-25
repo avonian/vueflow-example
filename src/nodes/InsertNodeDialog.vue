@@ -40,7 +40,7 @@
                   </div>
                 </DialogTitle>
                 <div class="mt-2 flex flex-col gap-y-4">
-                  <ButtonSecondary class="w-full" v-for="action of actionsMenu" @click="callback(action.type)" :key="action">
+                  <ButtonSecondary class="w-full" v-for="action of actions" @click="callback(action.type)" :key="action">
                     <div class="flex items-center gap-x-2 w-full">
                       <Icon class-list="w-6 h-6" :name="action.icon" />
                       <div class="grow flex items-start">{{ action.label }}</div>
@@ -61,27 +61,9 @@ import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } fro
 import { XMarkIcon } from '@heroicons/vue/20/solid'
 import ButtonSecondary from '@/controls/ButtonSecondary.vue'
 import Icon from '@/controls/Icon.vue'
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 
-const { show } = defineProps(['show', 'callback'])
-
-const actionsMenu = ref([
-  {
-    icon: 'send_email',
-    type: 'action.send_email',
-    label: 'Send an email',
-  },
-  {
-    icon: 'branch',
-    type: 'branch',
-    label: 'Branch',
-  },
-  {
-    icon: 'wait',
-    type: 'wait',
-    label: 'Wait',
-  }
-])
+const { show, actions } = defineProps(['show', 'actions', 'callback'])
 
 defineEmits(['hide', 'newNode'])
 

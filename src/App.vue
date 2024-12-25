@@ -18,7 +18,7 @@
   >
     <ExclamationTriangleIcon class="h-6 w-6 text-red-600" aria-hidden="true" />
   </DeleteBranchDialog>
-  <InsertNodeDialog @hide="insertNodeDialog = false" :callback="insertNodeDialog.callback" :show="!!insertNodeDialog"/>
+  <InsertNodeDialog @hide="insertNodeDialog = false" :actions="insertNodeDialog.actions" :callback="insertNodeDialog.callback" :show="!!insertNodeDialog"/>
   <div class="absolute w-full h-full">
     <VueFlow
       :nodes="nodes"
@@ -149,7 +149,30 @@ const insertAfterNode = (nodeId) => {
 }
 
 const showInsertNodeDialog = (connectionId) => {
+  const edge = edges.value.find((e) => e.id === connectionId)
+  const parentNode = nodes.value.find((n) => n.id === edge.source)
+
+  const actions = [{
+    icon: 'send_email',
+    type: 'action.send_email',
+    label: 'Send an email',
+  },
+  {
+    icon: 'branch',
+    type: 'branch',
+    label: 'Branch',
+  },
+  {
+    icon: 'wait',
+    type: 'wait',
+    label: 'Wait',
+  }]
+  if(parentNode.type === 'branch') {
+    actions.splice(1, 1)
+  }
+
   insertNodeDialog.value = {
+    actions,
     callback: (type) => {
       if(type.startsWith('action')) {
         const action = type.split('.')[0]
@@ -168,6 +191,7 @@ const showInsertNodeDialog = (connectionId) => {
       }
       insertNodeDialog.value = false
     }
+
   }
 }
 

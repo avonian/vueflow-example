@@ -22,7 +22,7 @@ export const initialNodes = [
     position
   },
   {
-    id: 'add-entry-node',
+    id: '1000',
     type: 'entry',
     data: {
       placeholder: true
